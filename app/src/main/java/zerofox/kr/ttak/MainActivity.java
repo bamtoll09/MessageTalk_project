@@ -1,6 +1,5 @@
 package zerofox.kr.ttak;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(listViewAdapter);
 
         currentTime = new SimpleDateFormat("a hh:mm").format(new Date(System.currentTimeMillis()));
-        listViewAdapter.add(Drawable.createFromPath("drawable-xxhdpi/asdf.jpg"), "일베", "딱", currentTime);
+        listViewAdapter.add(getResources().getDrawable(R.drawable.asdf), "제목", "글", currentTime);
+        listViewAdapter.add(getResources().getDrawable(R.drawable.asdfasdf), "제목", "글", currentTime);
+        listViewAdapter.add(getResources().getDrawable(R.drawable.asdfasdfasdf), "제목", "글", currentTime);
     }
 
     @Override
