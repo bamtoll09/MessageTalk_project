@@ -1,21 +1,37 @@
 package zerofox.kr.ttak;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
+    ListView listView;
+    ListViewAdapter listViewAdapter;
+
+    String currentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        listView = (ListView) findViewById(R.id.roomList);
+        listViewAdapter = new ListViewAdapter();
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -26,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        listView.setAdapter(listViewAdapter);
+
+        currentTime = new SimpleDateFormat("a hh:mm").format(new Date(System.currentTimeMillis()));
+        listViewAdapter.add(Drawable.createFromPath("drawable-xxhdpi/asdf.jpg"), "일베", "딱", currentTime);
     }
 
     @Override
@@ -48,5 +69,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class ViewHolder {
+        public ImageView mIcon;
+
+        public TextView mTitle;
+
+        public TextView mText;
+
+        public TextView mDate;
     }
 }
