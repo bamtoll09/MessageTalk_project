@@ -2,15 +2,12 @@ package zerofox.kr.ttak;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     ListView listView;
     ListViewAdapter listViewAdapter;
+    RoomMakeDialog roomMakeDL;
 
     String currentTime;
 
@@ -28,17 +26,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView = (ListView) findViewById(R.id.roomList);
         listViewAdapter = new ListViewAdapter();
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "This service is not realized yet. Sorry :(", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                roomMakeDL = new RoomMakeDialog();
+                roomMakeDL.show(getFragmentManager(), null);
             }
         });
 
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         listViewAdapter.add(getResources().getDrawable(R.drawable.asdf), "제목", "글", currentTime);
         listViewAdapter.add(getResources().getDrawable(R.drawable.asdfasdf), "제목", "글", currentTime);
         listViewAdapter.add(getResources().getDrawable(R.drawable.asdfasdfasdf), "제목", "글", currentTime);
+        listViewAdapter.add(getResources().getDrawable(R.drawable.ayano), "제목", "글", currentTime);
     }
 
     @Override
@@ -70,15 +70,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private class ViewHolder {
-        public ImageView mIcon;
-
-        public TextView mTitle;
-
-        public TextView mText;
-
-        public TextView mDate;
     }
 }

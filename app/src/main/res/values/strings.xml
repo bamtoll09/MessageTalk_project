@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">TTAK</string>
     <string name="action_settings">Settings</string>
+    <string name="room_name">방 이름</string>
+    <string name="add_member">전화번호 입력</string>
+    <string name="add_room">방 추가</string>
+    <string name="cancel">취소</string>
 </resources>
