@@ -25,4 +25,6 @@ public class ListData {
         this.mText = mText;
         this.mDate = mDate;
     }
+
+    public ListData() { }
 }

@@ -18,6 +18,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -36,7 +39,7 @@ public class RoomMakeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        final LayoutInflater inflater = getActivity().getLayoutInflater();
 
         final View roomMakeView = inflater.inflate(R.layout.dia_room_make, null);
 
@@ -48,6 +51,14 @@ public class RoomMakeDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // sign in the user ...
+                        String title = mTitle.getText().toString(),
+                                text = mText.getText().toString();
+                        if (title.equals(""))
+                            title = "제목";
+                        if (text.equals(""))
+                            text = "글";
+                        MainActivity.listViewAdapter.add(mIcon.getDrawable(), title, text, new SimpleDateFormat("a hh:mm").format(new Date(System.currentTimeMillis())));
+                        MainActivity.listViewAdapter.notifyDataSetChanged();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -133,7 +144,7 @@ public class RoomMakeDialog extends DialogFragment {
             options.inJustDecodeBounds = false;
             bm = BitmapFactory.decodeFile(selectedImagePath, options);
 
-            mIcon.setImageBitmap(bm);Y//Drawable(getResources().getDrawable(R.drawable.ic_default));
+            mIcon.setImageBitmap(bm);//Drawable(getResources().getDrawable(R.drawable.ic_default));
         }
     }
 }

@@ -16,10 +16,12 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     ListView listView;
-    ListViewAdapter listViewAdapter;
+    static ListViewAdapter listViewAdapter;
     RoomMakeDialog roomMakeDL;
 
     String currentTime;
+
+    final int[] default_imgs = new int[]{ R.drawable.asdf, R.drawable.asdfasdf, R.drawable.asdfasdfasdf, R.drawable.ayano };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +46,8 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(listViewAdapter);
 
         currentTime = new SimpleDateFormat("a hh:mm").format(new Date(System.currentTimeMillis()));
-        listViewAdapter.add(getResources().getDrawable(R.drawable.asdf), "제목", "글", currentTime);
-        listViewAdapter.add(getResources().getDrawable(R.drawable.asdfasdf), "제목", "글", currentTime);
-        listViewAdapter.add(getResources().getDrawable(R.drawable.asdfasdfasdf), "제목", "글", currentTime);
-        listViewAdapter.add(getResources().getDrawable(R.drawable.ayano), "제목", "글", currentTime);
+        for (int i=0; i<4; i++)
+            listViewAdapter.add(getResources().getDrawable(default_imgs[i]), "제목", "글", currentTime);
     }
 
     @Override

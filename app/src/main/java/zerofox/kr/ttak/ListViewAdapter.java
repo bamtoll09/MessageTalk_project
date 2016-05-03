@@ -1,6 +1,8 @@
 package zerofox.kr.ttak;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ public class ListViewAdapter extends BaseAdapter {
 
     private Context mContext = null;
     private ArrayList<ListData> mListData = new ArrayList<ListData>();
+    private String[] items = new String[]{"삭제"};
 
     @Override
     public int getCount() {
@@ -36,7 +39,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
 
         final int pos = position;
         final Context context = parent.getContext();
@@ -62,6 +65,22 @@ public class ListViewAdapter extends BaseAdapter {
             title.setText(mListData.get(pos).mTitle);
             text.setText(mListData.get(pos).mText);
             date.setText(mListData.get(pos).mDate);
+
+            convertView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
+                    builder.setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainActivity.listViewAdapter.remove(position);
+                            MainActivity.listViewAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    builder.create().show();
+                    return true;
+                }
+            });
 
             holder = new CustomHolder();
             holder.mCIV = circleImageView;
